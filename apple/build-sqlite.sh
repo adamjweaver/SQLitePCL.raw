@@ -36,14 +36,14 @@ mkdir -p ./obj/mac/$Z_SQL/i386
 mkdir -p ./obj/mac/$Z_SQL/x86_64
 mkdir -p ./libs/mac/$Z_SQL
 
-xcrun --sdk macosx clang -arch i386 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/mac/$Z_SQL/i386/sqlite3.c.o ../$Z_SQL/sqlite3.c
-xcrun --sdk macosx clang -arch x86_64 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/mac/$Z_SQL/x86_64/sqlite3.c.o ../$Z_SQL/sqlite3.c
+xcrun --sdk macosx clang -mmacosx-version-min=10.8 -arch i386 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/mac/$Z_SQL/i386/sqlite3.c.o ../$Z_SQL/sqlite3.c
+xcrun --sdk macosx clang -mmacosx-version-min=10.8 -arch x86_64 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/mac/$Z_SQL/x86_64/sqlite3.c.o ../$Z_SQL/sqlite3.c
 
 libtool -static -o ./libs/mac/$Z_SQL/e_sqlite3.a \
 	./obj/mac/$Z_SQL/i386/sqlite3.c.o \
 	./obj/mac/$Z_SQL/x86_64/sqlite3.c.o
 
-xcrun --sdk macosx clang -dynamiclib -arch i386 -arch x86_64 $Z_CFLAGS $Z_CODEC_ARGS -o ./libs/mac/$Z_SQL/libe_sqlite3.dylib ../$Z_SQL/sqlite3.c ./libs/mac/libcrypto.a
+xcrun --sdk macosx clang -dynamiclib -mmacosx-version-min=10.8 -arch i386 -arch x86_64 $Z_CFLAGS $Z_CODEC_ARGS -o ./libs/mac/$Z_SQL/libe_sqlite3.dylib ../$Z_SQL/sqlite3.c ./libs/mac/libcrypto.a
 
 xcrun --sdk iphonesimulator clang -miphoneos-version-min=6.0 -arch i386 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/ios/$Z_SQL/i386/sqlite3.c.o ../$Z_SQL/sqlite3.c
 xcrun --sdk iphonesimulator clang -miphoneos-version-min=6.0 -arch x86_64 $Z_CFLAGS $Z_CODEC_ARGS -c -o ./obj/ios/$Z_SQL/x86_64/sqlite3.c.o ../$Z_SQL/sqlite3.c
